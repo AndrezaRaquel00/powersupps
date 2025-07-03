@@ -266,7 +266,11 @@ def excluir(id):
     flash('Produto excluído com sucesso!')
     return redirect(url_for('index'))
 
+import os
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 10000))  # usa a porta fornecida pela Render, ou 10000 como padrão
+    app.run(host='0.0.0.0', port=port)
+
