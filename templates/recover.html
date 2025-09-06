@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recuperar Senha - Gym Ware</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #6dd5fa, #2980b9);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    .recover-container {
+      background: #fff;
+      padding: 40px 30px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    .logo {
+      margin-bottom: 15px;
+    }
+
+    .logo svg {
+      width: 50px;
+      height: 50px;
+      vertical-align: middle;
+      fill: #19a3e2;
+    }
+
+    .logo-text {
+      font-weight: 600;
+      font-size: 28px;
+      color: #19a3e2;
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
+      user-select: none;
+      letter-spacing: 1.2px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 10px;
+      margin-bottom: 18px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #19a3e2;
+      outline: none;
+      box-shadow: 0 0 6px #19a3e2aa;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #19a3e2;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1582b3;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .back-link a {
+      color: #19a3e2;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="recover-container">
+    <div class="logo" aria-label="Logo Gym Ware">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <rect x="6" y="22" width="8" height="20" rx="2" />
+        <rect x="50" y="22" width="8" height="20" rx="2" />
+        <rect x="14" y="28" width="36" height="8" rx="4" />
+      </svg>
+      <span class="logo-text">Gym Ware</span>
+    </div>
+
+    <h2>Recuperar Senha</h2>
+
+    <form method="post">
+      <label for="email">Digite seu e-mail:</label>
+      <input type="email" id="email" name="email" required>
+
+      <button type="submit">Enviar código</button>
+    </form>
+
+    <div class="back-link">
+      <a href="{{ url_for('login') }}">Voltar para o login</a>
+    </div>
+  </div>
+</body>
+</html>
+

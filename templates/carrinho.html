@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrinho de Compras</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 900px;
+      margin: 30px auto;
+      background-color: #f0f2f5;
+      color: #333;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 25px;
+      color: #222;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .empty-cart {
+      text-align: center;
+      margin: 60px 0;
+      padding: 30px;
+      border: 2px dashed #bbb;
+      border-radius: 12px;
+      background-color: #fafafa;
+      color: #666;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    ul.product-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.product-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+      transition: box-shadow 0.3s ease;
+    }
+
+    ul.product-list li:hover {
+      box-shadow: 0 4px 14px rgb(0 0 0 / 0.1);
+    }
+
+    .product-info {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-grow: 1;
+    }
+
+    .product-info img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+    }
+
+    .product-details {
+      font-weight: 600;
+      font-size: 18px;
+      color: #222;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: 17px;
+      color: #3498db;
+      margin-left: 10px;
+    }
+
+    form.remove-form {
+      margin-left: 15px;
+    }
+
+    button.remove-btn {
+      background-color: #e74c3c;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    button.remove-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    form.limpar-form {
+      margin: 0;
+    }
+
+    button.limpar-btn {
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+
+    button.limpar-btn:hover {
+      background-color: #1f618d;
+    }
+
+    .signature {
+      margin-top: 50px;
+      font-style: italic;
+      font-weight: bold;
+      text-align: center;
+      color: #888;
+      letter-spacing: 0.1em;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 25px;
+      color: #3498db;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a.back-link:hover {
+      color: #21618c;
+      text-decoration: underline;
+    }
+
+    /* Novos estilos para o formulário de pagamento */
+    .payment-form {
+      margin-top: 40px;
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgb(0 0 0 / 0.1);
+    }
+
+    .payment-form h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #3498db;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 8px;
+    }
+
+    .payment-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #555;
+      font-size: 15px;
+    }
+
+    .payment-form input {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline-offset: 2px;
+      outline-color: transparent;
+    }
+
+    .payment-form input:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 8px #3498dbaa;
+      outline-color: #3498dbcc;
+    }
+
+    .payment-form button {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      background-color: #3498db;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 6px 14px #3498dbcc;
+    }
+
+    .payment-form button:hover {
+      background-color: #2874a6;
+      box-shadow: 0 8px 22px #2874a6cc;
+    }
+
+    .flash {
+      background-color: #ffdddd;
+      border: 1px solid #e88787;
+      color: #b20000;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>ITENS NO CARRINHO ({{ produtos|length }})</h1>
+
+  {% if produtos %}
+    <ul class="product-list">
+      {% for produto in produtos %}
+        <li>
+          <div class="product-info">
+            <img src="{{ url_for('static', filename='uploads/' ~ produto.imagem) }}" alt="{{ produto.nome }}">
+            <div class="product-details">
+              {{ produto.nome }}<span class="price">R$ {{ "%.2f"|format(produto.preco) }}</span>
+            </div>
+          </div>
+          <form class="remove-form" method="POST" action="{{ url_for('remover_do_carrinho', produto_id=produto.id) }}">
+            <button type="submit" class="remove-btn">Remover</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div class="actions">
+      <form class="limpar-form" method="POST" action="{{ url_for('limpar_carrinho') }}">
+        <button type="submit" class="limpar-btn">Limpar Carrinho</button>
+      </form>
+      <a href="{{ url_for('index') }}" class="back-link">← Continuar Comprando</a>
+    </div>
+
+    <!-- Formulário de pagamento -->
+    <div class="payment-form">
+      <h2>Pagamento</h2>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash">
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST" action="{{ url_for('finalizar_compra') }}">
+        <label for="nome">Nome no cartão</label>
+        <input type="text" id="nome" name="nome" required />
+
+        <label for="numero_cartao">Número do cartão</label>
+        <input type="text" id="numero_cartao" name="numero_cartao" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" required />
+
+        <label for="validade">Validade</label>
+        <input type="text" id="validade" name="validade" placeholder="MM/AA" maxlength="5" required />
+
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv" maxlength="3" required />
+
+        <button type="submit">Finalizar Compra</button>
+      </form>
+    </div>
+
+  {% else %}
+    <div class="empty-cart">
+      <h2>SEU CARRINHO ESTÁ VAZIO</h2>
+      <p>Navegue pelas categorias e adicione produtos ao seu carrinho.</p>
+      <a href="{{ url_for('index') }}" class="back-link">← Voltar à loja</a>
+    </div>
+  {% endif %}
+
+  <div class="signature">TINA A - GROLENEI</div>
+</body>
+</html>
